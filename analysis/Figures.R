@@ -92,7 +92,7 @@ my_short3UTR_genes <- my_short3UTR_genes[!(is.na(names(my_short3UTR_genes)))]
 
 
 
-editedRNAs_symbols <- read.xls("../data_folder/nsmb.2675-S2.xlsx", sheet = 4, stringsAsFactor = FALSE)
+editedRNAs_symbols <- read.delim("../data_folder/nsmb.2675-S2.txt", stringsAsFactor = FALSE)
 editedRNAs_symbols <- unique(editedRNAs_symbols[,1])
 editedRNAs_symbols <- unique(gsub("-R.*", "", editedRNAs_symbols[-1:-2]))
 

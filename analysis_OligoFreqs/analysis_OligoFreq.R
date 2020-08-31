@@ -5,6 +5,8 @@
 
 rm(list = ls())
 
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+
 
 ########################################################  libraries ######################################################## 
 
@@ -30,7 +32,7 @@ library(GenomicAlignments)
 library(rtracklayer)
 library(BSgenome.Dmelanogaster.UCSC.dm6)
 
-source("functions/functions_DESeq.R")
+source("../functions/functions_DESeq.R")
 
 
 cbPalette <- c("#999999", "#0072B2", "#CC79A7", "#009E73", "#E69F00", "#D55E00", "#56B4E9", "#F0E442")
@@ -60,7 +62,7 @@ my_genome <- keepBSgenomeSequences(my_genome, my_chromosomes)
 
 
 
-dir.gtf <- "genome/"
+dir.gtf <- "../genome/"
 gtffile <- file.path(dir.gtf,"dmel-all-r6.17.gtf")
 txdb <- makeTxDbFromGFF(gtffile, format="gtf")
 
@@ -109,7 +111,7 @@ my_seq_genes <- my_seq_genes[width(my_seq_genes) < 1e5]
 ########################################################    results    ######################################################
 
 
-my_ress <- list.files(path = "analysis/",pattern = "^res")
+my_ress <- list.files(path = "../analysis/",pattern = "^res")
 
 i=1
 
@@ -117,7 +119,7 @@ for(i in seq_along(my_ress)){
         
         my_name <- gsub(".txt","",my_ress[i])
         
-        my_res <- read.delim(file.path("analysis/", my_ress[i]), header = T, row.names = 1)
+        my_res <- read.delim(file.path("../analysis/", my_ress[i]), header = T, row.names = 1)
         
         assign(my_name, my_res)
         
@@ -211,9 +213,9 @@ for(isFreq in c(TRUE, FALSE)){
                 
                 
                 if(isFreq){
-                        file_name <- paste0("analysis_OligoFreqs/OligoFreqs_Enriched_",my_type_names,".pdf")
+                        file_name <- paste0("OligoFreqs_Enriched_",my_type_names,".pdf")
                 } else {
-                        file_name <- paste0("analysis_OligoFreqs/OligoCounts_Enriched_",my_type_names,".pdf")
+                        file_name <- paste0("OligoCounts_Enriched_",my_type_names,".pdf")
                 }
                 
                 pdf(file = file_name, width = 16, height = 8, useDingbats = FALSE)
